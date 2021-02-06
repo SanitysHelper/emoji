@@ -1,0 +1,58 @@
+local p1 = ';'
+local p2 = ';'
+local p3 = ':'
+local p4 = ':'
+
+function getchatbox()
+    return game.Players.LocalPlayer.PlayerGui:WaitForChild"Chat":WaitForChild"Frame":WaitForChild"ChatBarParentFrame":WaitForChild"Frame":WaitForChild"BoxFrame":WaitForChild"Frame":WaitForChild"ChatBar"
+end
+
+
+function gettext()
+    return getchatbox().Text
+end
+
+function edittext(text)
+    getchatbox().Text = text
+end
+
+
+local emojis = {
+    name = {};
+    emoji = {}
+}
+
+getchatbox().Changed:Connect(function()
+    local text = gettext():lower()
+    for i,v in pairs(emojis.name) do
+        text = text:gsub(v, emojis.emoji[i])
+    end
+    edittext(text)
+end)
+
+function addemoji(name, emoji)
+    emojis.name[#emojis.name+1] = p1..name:lower()..p2
+    emojis.name[#emojis.name+1] = p3..name:lower()..p4
+    emojis.emoji[#emojis.emoji+1] = emoji
+    emojis.emoji[#emojis.emoji+1] = emoji
+end
+
+local pre = ")"
+
+function subify(poop)
+    local returnlol = ""
+    for i = 1, string.len(poop) do
+        local v = poop:sub(i,i)
+        if v == ")" then
+            v = pre..";"
+        end
+        returnlol = returnlol..v
+    end
+    return returnlol
+end
+
+local text = game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/emoji/main/emojis")
+text = subify(text)
+scripting = "picture = ".."{"..text.."} return picture"
+setclipboard(scripting)
+loadstring(scripting)()
