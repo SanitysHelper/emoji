@@ -23,10 +23,11 @@ local emojis = {
 }
 
 getchatbox().Changed:Connect(function()
-    local text = gettext():lower()
+    local text = gettext()
     for i,v in pairs(emojis.name) do
         text = text:gsub(v, emojis.emoji[i])
     end
+    
     edittext(text)
 end)
 
@@ -54,5 +55,4 @@ end
 local text = game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/emoji/main/emojis")
 text = subify(text)
 scripting = "picture = ".."{"..text.."} return picture"
-setclipboard(scripting)
 loadstring(scripting)()
