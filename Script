@@ -40,19 +40,7 @@ end
 
 local pre = ")"
 
-function subify(poop)
-    local returnlol = ""
-    for i = 1, string.len(poop) do
-        local v = poop:sub(i,i)
-        if v == ")" then
-            v = pre..";"
-        end
-        returnlol = returnlol..v
-    end
-    return returnlol
-end
-
 local text = game:HttpGet("https://raw.githubusercontent.com/SanitysHelper/emoji/main/emojis")
-text = subify(text)
+text = text:gsub("%)", ");")
 scripting = "picture = ".."{"..text.."} return picture"
 loadstring(scripting)()
